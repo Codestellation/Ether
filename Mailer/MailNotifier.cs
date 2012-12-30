@@ -8,16 +8,18 @@ namespace Codestellation.Mailer
 {
     public class MailNotifier : IMailNotifier
     {
+        private readonly string _fromAddress;
         private readonly ISmtpClient _smtpClient;
 
-        public MailNotifier(ISmtpClient smtpClient)
+        public MailNotifier(string fromAddress, ISmtpClient smtpClient)
         {
+            _fromAddress = fromAddress;
             _smtpClient = smtpClient;
         }
 
         public void Send(object mail)
         {
-            _smtpClient.Send(new Email());
+            _smtpClient.Send(new Email(_fromAddress));
         }
     }
 }
