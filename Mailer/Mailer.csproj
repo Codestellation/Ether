@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Core\Email.cs" />
     <Compile Include="Core\ISmtpClient.cs" />
+    <Compile Include="Core\TestSmtpClient.cs" />
     <Compile Include="IMailNotifier.cs" />
     <Compile Include="MailNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
