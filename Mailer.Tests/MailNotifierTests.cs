@@ -12,6 +12,7 @@ namespace Codestellation.Mailer.Tests
     {
         private TestSmtpClient _smtpClient;
         private TestMailingListBroker _mailingListBroker;
+        private TestMailTemplateConainer _templateConainer;
         private MailNotifier _notifier;
 
         [SetUp]
@@ -19,7 +20,10 @@ namespace Codestellation.Mailer.Tests
         {
             _smtpClient = new TestSmtpClient();
             _mailingListBroker = new TestMailingListBroker().Register<string>("alice@test.ru", "bob@test.ru");
-            _notifier = new MailNotifier("me@test.ru", _smtpClient, _mailingListBroker);
+            _templateConainer = new TestMailTemplateConainer();
+            _templateConainer.Register<string>(m => string.Format("Subject for {0}", m),
+                                               m => string.Format("Body for {0}!", m));
+            _notifier = new MailNotifier("me@test.ru", _smtpClient, _mailingListBroker, _templateConainer);
         }
 
         [Test]
@@ -43,6 +47,15 @@ namespace Codestellation.Mailer.Tests
             _notifier.Send("Hello");
             Email email = _smtpClient.GetNextOutgoing();
             Assert.That(email.Recepients, Is.EquivalentTo(new string[] {"alice@test.ru", "bob@test.ru"}));
+        }
+
+        [Test]
+        public void Should_set_email_subject_and_body_using_template()
+        {
+            _notifier.Send("email");
+            Email email = _smtpClient.GetNextOutgoing();
+            Assert.That(email.Subject, Is.EqualTo("Subject for email"));
+            Assert.That(email.Body, Is.EqualTo("Body for email!"));
         }
     }
 }
