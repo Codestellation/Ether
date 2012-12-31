@@ -4,6 +4,8 @@ namespace Codestellation.Mailer.Core
     {
         public string From { get; private set; }
         public string[] Recepients { get; private set; }
+        public string Subject { get; set; }
+        public string Body { get; set; }
 
         public Email(string fromAddress, string[] recepients)
         {
