@@ -11,13 +11,15 @@ namespace Codestellation.Mailer.Tests
     public class MailNotifierTests
     {
         private TestSmtpClient _smtpClient;
+        private TestMailingListBroker _mailingListBroker;
         private MailNotifier _notifier;
 
         [SetUp]
         public void Setup()
         {
             _smtpClient = new TestSmtpClient();
-            _notifier = new MailNotifier("me@test.ru", _smtpClient);
+            _mailingListBroker = new TestMailingListBroker().Register<string>("alice@test.ru", "bob@test.ru");
+            _notifier = new MailNotifier("me@test.ru", _smtpClient, _mailingListBroker);
         }
 
         [Test]
@@ -33,6 +35,14 @@ namespace Codestellation.Mailer.Tests
             _notifier.Send("Hello");
             Email email = _smtpClient.GetNextOutgoing();
             Assert.That(email.From, Is.EqualTo("me@test.ru"));
+        }
+
+        [Test]
+        public void Should_set_email_recepients_depends_on_message_type()
+        {
+            _notifier.Send("Hello");
+            Email email = _smtpClient.GetNextOutgoing();
+            Assert.That(email.Recepients, Is.EquivalentTo(new string[] {"alice@test.ru", "bob@test.ru"}));
         }
     }
 }

@@ -10,16 +10,23 @@ namespace Codestellation.Mailer
     {
         private readonly string _fromAddress;
         private readonly ISmtpClient _smtpClient;
+        private readonly IMailingListBroker _mailingListBroker;
 
-        public MailNotifier(string fromAddress, ISmtpClient smtpClient)
+        public MailNotifier(string fromAddress, ISmtpClient smtpClient, IMailingListBroker mailingListBroker)
         {
             _fromAddress = fromAddress;
             _smtpClient = smtpClient;
+            _mailingListBroker = mailingListBroker;
         }
 
         public void Send(object mail)
         {
-            _smtpClient.Send(new Email(_fromAddress));
+            Type mailType = mail.GetType();
+
+            var email = new Email(_fromAddress,
+                                  _mailingListBroker.GetRecepients(mailType));
+
+            _smtpClient.Send(email);
         }
     }
 }
