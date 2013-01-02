@@ -8,9 +8,29 @@ namespace Codestellation.Mailer.Core
 {
     public class MailingListBroker : IMailingListBroker
     {
+        private Dictionary<string, string[]> _subscriptions;
+
+        public MailingListBroker()
+        {
+            _subscriptions = new Dictionary<string, string[]>();
+        }
+
         public string[] GetRecepients(Type type)
         {
-            throw new NotImplementedException();
+            List<string> recepients = new List<string>();
+            foreach (var subscription in _subscriptions)
+            {
+                if(IsTypeInHierarchy(type, subscription.Key))
+                {
+                    recepients.AddRange(subscription.Value);
+                }
+            }
+            return recepients.Distinct().ToArray();
+        }
+
+        public void Register(string typeHierarchy, params string[] recepients)
+        {
+            _subscriptions[typeHierarchy] = recepients;
         }
 
         public static bool IsTypeInHierarchy(Type type, string hierarchy)
