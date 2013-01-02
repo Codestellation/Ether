@@ -50,6 +50,7 @@
     <Compile Include="Core\IMailTemplate.cs" />
     <Compile Include="Core\IMailTemplateConainer.cs" />
     <Compile Include="Core\ISmtpClient.cs" />
+    <Compile Include="Core\MailingListBroker.cs" />
     <Compile Include="Core\TestMailingListBroker.cs" />
     <Compile Include="Core\TestMailTemplate.cs" />
     <Compile Include="Core\TestMailTemplateConainer.cs" />
