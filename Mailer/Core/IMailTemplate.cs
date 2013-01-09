@@ -2,6 +2,6 @@
 {
     public interface IMailTemplate
     {
-        void RenderTo(object model, Email email);
+        void Render(object model, out string subject, out string body);
     }
 }

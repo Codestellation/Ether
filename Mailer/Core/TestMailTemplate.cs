@@ -16,10 +16,10 @@ namespace Codestellation.Mailer.Core
             _renderBody = renderBody;
         }
 
-        public void RenderTo(object model, Email email)
+        public void Render(object model, out string subject, out string body)
         {
-            email.Subject = _renderSubject(model);
-            email.Body = _renderBody(model);
+            subject = _renderSubject(model);
+            body = _renderBody(model);
         }
 
         public static TestMailTemplate Create<T>(Func<T, string> renderSubject, Func<T, string> renderBody)

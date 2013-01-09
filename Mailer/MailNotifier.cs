@@ -27,10 +27,15 @@ namespace Codestellation.Mailer
 
             IMailTemplate template = _templateConainer.Get(mailType);
 
-            var email = new Email(_fromAddress,
-                                  _mailingListBroker.GetRecepients(mailType));
+            string subject, body;
+            template.Render(mail, out subject, out body);
 
-            template.RenderTo(mail, email);
+            var email = new Email(_fromAddress,
+                                  _mailingListBroker.GetRecepients(mailType))
+                {
+                    Subject = subject,
+                    Body = body
+                };
 
             _smtpClient.Send(email);
         }
