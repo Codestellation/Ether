@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Codestellation.Mailer.Core;
+using Codestellation.Mailer.Core.Templating;
 using NUnit.Framework;
 
 namespace Codestellation.Mailer.Tests
@@ -12,7 +13,7 @@ namespace Codestellation.Mailer.Tests
     {
         private TestSmtpClient _smtpClient;
         private TestMailingListBroker _mailingListBroker;
-        private TestMailTemplateConainer _templateConainer;
+        private MailTemplateEngine _templateEngine;
         private MailNotifier _notifier;
 
         [SetUp]
@@ -20,10 +21,11 @@ namespace Codestellation.Mailer.Tests
         {
             _smtpClient = new TestSmtpClient();
             _mailingListBroker = new TestMailingListBroker().Register<string>("alice@test.ru", "bob@test.ru");
-            _templateConainer = new TestMailTemplateConainer();
-            _templateConainer.Register<string>(m => string.Format("Subject for {0}", m),
-                                               m => string.Format("Body for {0}!", m));
-            _notifier = new MailNotifier("me@test.ru", _smtpClient, _mailingListBroker, _templateConainer);
+            _templateEngine = new MailTemplateEngine();
+            _templateEngine.Register<string>(m => new MailView(string.Format("Subject for {0}", m),
+                                                               string.Format("Body for {0}!", m)));
+
+            _notifier = new MailNotifier("me@test.ru", _smtpClient, _mailingListBroker, _templateEngine);
         }
 
         [Test]

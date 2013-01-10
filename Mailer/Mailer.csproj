@@ -38,6 +38,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,13 +51,15 @@
   <ItemGroup>
     <Compile Include="Core\Email.cs" />
     <Compile Include="Core\IMailingListBroker.cs" />
-    <Compile Include="Core\IMailTemplate.cs" />
-    <Compile Include="Core\IMailTemplateConainer.cs" />
+    <Compile Include="Core\IMailTemplateEngine.cs" />
     <Compile Include="Core\ISmtpClient.cs" />
     <Compile Include="Core\MailingListBroker.cs" />
+    <Compile Include="Core\MailView.cs" />
+    <Compile Include="Core\Templating\Razor\RazorMailTemplateBase.cs" />
+    <Compile Include="Core\Templating\Razor\RazorMailTemplateEngine.cs" />
+    <Compile Include="Core\Templating\MailTemplateEngine.cs" />
+    <Compile Include="Core\Templating\Razor\RazorTemplatesCompiler.cs" />
     <Compile Include="Core\TestMailingListBroker.cs" />
-    <Compile Include="Core\TestMailTemplate.cs" />
-    <Compile Include="Core\TestMailTemplateConainer.cs" />
     <Compile Include="Core\TestSmtpClient.cs" />
     <Compile Include="IMailNotifier.cs" />
     <Compile Include="MailNotifier.cs" />
