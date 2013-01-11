@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Codestellation.Mailer.Bootstrap;
+﻿using Codestellation.Mailer.Bootstrap;
 using NUnit.Framework;
 
 namespace Codestellation.Mailer.Tests.Bootstrap
@@ -11,7 +7,7 @@ namespace Codestellation.Mailer.Tests.Bootstrap
     public class CreateTests
     {
         [Test]
-        public void Should_create_mailnotifier_from_appconfig_file()
+        public void Should_create_mailnotifier_from_config_file()
         {
             IMailNotifier notifier = Create
                 .MailNotifier()

@@ -57,6 +57,7 @@
       <DependentUpon>ConfigSectionDesigner.csd</DependentUpon>
     </Compile>
     <Compile Include="Core\Email.cs" />
+    <Compile Include="Core\Extentions.cs" />
     <Compile Include="Core\IMailingListBroker.cs" />
     <Compile Include="Core\IMailTemplateEngine.cs" />
     <Compile Include="Core\ISmtpClient.cs" />

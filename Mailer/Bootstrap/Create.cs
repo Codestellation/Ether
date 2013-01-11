@@ -42,7 +42,7 @@ namespace Codestellation.Mailer.Bootstrap
                           .Select(
                               cfg =>
                               new MailingRule(cfg.Name,
-                                              cfg.Recepients.Split(',').Select(r => r.Trim()).ToArray())) // TODO: move this into MailingRule class
+                                              cfg.Recepients.SplitAndTrim())) // TODO: move this into MailingRule class
                           .ToArray());
 
             _templateEngine = RazorMailTemplateEngine.CreateUsingTemplatesFolder(config.TemplatesFolder);
