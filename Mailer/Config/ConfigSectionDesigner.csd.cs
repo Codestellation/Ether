@@ -151,6 +151,32 @@ namespace Codestellation.Mailer.Config
             }
         }
         #endregion
+        
+        #region MailingGroups Property
+        /// <summary>
+        /// The XML name of the <see cref="MailingGroups"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        internal const string MailingGroupsPropertyName = "groups";
+        
+        /// <summary>
+        /// Gets or sets the MailingGroups.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        [global::System.ComponentModel.DescriptionAttribute("The MailingGroups.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::Codestellation.Mailer.Config.MailNotifierConfigSection.MailingGroupsPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
+        public global::Codestellation.Mailer.Config.GroupConfigElementCollection MailingGroups
+        {
+            get
+            {
+                return ((global::Codestellation.Mailer.Config.GroupConfigElementCollection)(base[global::Codestellation.Mailer.Config.MailNotifierConfigSection.MailingGroupsPropertyName]));
+            }
+            set
+            {
+                base[global::Codestellation.Mailer.Config.MailNotifierConfigSection.MailingGroupsPropertyName] = value;
+            }
+        }
+        #endregion
     }
 }
 namespace Codestellation.Mailer.Config
@@ -386,6 +412,250 @@ namespace Codestellation.Mailer.Config
             get
             {
                 return ((string)(base[global::Codestellation.Mailer.Config.MailingRuleConfigurationElement.RecepientsPropertyName]));
+            }
+        }
+        #endregion
+    }
+}
+namespace Codestellation.Mailer.Config
+{
+    
+    
+    /// <summary>
+    /// A collection of GroupConfigElement instances.
+    /// </summary>
+    [global::System.Configuration.ConfigurationCollectionAttribute(typeof(global::Codestellation.Mailer.Config.GroupConfigElement), CollectionType=global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate, AddItemName=global::Codestellation.Mailer.Config.GroupConfigElementCollection.GroupConfigElementPropertyName)]
+    public partial class GroupConfigElementCollection : global::System.Configuration.ConfigurationElementCollection
+    {
+        
+        #region Constants
+        /// <summary>
+        /// The XML name of the individual <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> instances in this collection.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        internal const string GroupConfigElementPropertyName = "group";
+        #endregion
+        
+        #region Overrides
+        /// <summary>
+        /// Gets the type of the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <returns>The <see cref="global::System.Configuration.ConfigurationElementCollectionType"/> of this collection.</returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        public override global::System.Configuration.ConfigurationElementCollectionType CollectionType
+        {
+            get
+            {
+                return global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate;
+            }
+        }
+        
+        /// <summary>
+        /// Gets the name used to identify this collection of elements
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        protected override string ElementName
+        {
+            get
+            {
+                return global::Codestellation.Mailer.Config.GroupConfigElementCollection.GroupConfigElementPropertyName;
+            }
+        }
+        
+        /// <summary>
+        /// Indicates whether the specified <see cref="global::System.Configuration.ConfigurationElement"/> exists in the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="elementName">The name of the element to verify.</param>
+        /// <returns>
+        /// <see langword="true"/> if the element exists in the collection; otherwise, <see langword="false"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        protected override bool IsElementName(string elementName)
+        {
+            return (elementName == global::Codestellation.Mailer.Config.GroupConfigElementCollection.GroupConfigElementPropertyName);
+        }
+        
+        /// <summary>
+        /// Gets the element key for the specified configuration element.
+        /// </summary>
+        /// <param name="element">The <see cref="global::System.Configuration.ConfigurationElement"/> to return the key for.</param>
+        /// <returns>
+        /// An <see cref="object"/> that acts as the key for the specified <see cref="global::System.Configuration.ConfigurationElement"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        protected override object GetElementKey(global::System.Configuration.ConfigurationElement element)
+        {
+            return ((global::Codestellation.Mailer.Config.GroupConfigElement)(element)).Name;
+        }
+        
+        /// <summary>
+        /// Creates a new <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/>.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        protected override global::System.Configuration.ConfigurationElement CreateNewElement()
+        {
+            return new global::Codestellation.Mailer.Config.GroupConfigElement();
+        }
+        #endregion
+        
+        #region Indexer
+        /// <summary>
+        /// Gets the <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        public global::Codestellation.Mailer.Config.GroupConfigElement this[int index]
+        {
+            get
+            {
+                return ((global::Codestellation.Mailer.Config.GroupConfigElement)(base.BaseGet(index)));
+            }
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> with the specified key.
+        /// </summary>
+        /// <param name="name">The key of the <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        public global::Codestellation.Mailer.Config.GroupConfigElement this[object name]
+        {
+            get
+            {
+                return ((global::Codestellation.Mailer.Config.GroupConfigElement)(base.BaseGet(name)));
+            }
+        }
+        #endregion
+        
+        #region Add
+        /// <summary>
+        /// Adds the specified <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> to the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="group">The <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> to add.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        public void Add(global::Codestellation.Mailer.Config.GroupConfigElement group)
+        {
+            base.BaseAdd(group);
+        }
+        #endregion
+        
+        #region Remove
+        /// <summary>
+        /// Removes the specified <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> from the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="group">The <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> to remove.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        public void Remove(global::Codestellation.Mailer.Config.GroupConfigElement group)
+        {
+            base.BaseRemove(this.GetElementKey(group));
+        }
+        #endregion
+        
+        #region GetItem
+        /// <summary>
+        /// Gets the <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        public global::Codestellation.Mailer.Config.GroupConfigElement GetItemAt(int index)
+        {
+            return ((global::Codestellation.Mailer.Config.GroupConfigElement)(base.BaseGet(index)));
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> with the specified key.
+        /// </summary>
+        /// <param name="name">The key of the <see cref="global::Codestellation.Mailer.Config.GroupConfigElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        public global::Codestellation.Mailer.Config.GroupConfigElement GetItemByKey(string name)
+        {
+            return ((global::Codestellation.Mailer.Config.GroupConfigElement)(base.BaseGet(((object)(name)))));
+        }
+        #endregion
+        
+        #region IsReadOnly override
+        /// <summary>
+        /// Gets a value indicating whether the element is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
+        #endregion
+    }
+}
+namespace Codestellation.Mailer.Config
+{
+    
+    
+    /// <summary>
+    /// The GroupConfigElement Configuration Element.
+    /// </summary>
+    public partial class GroupConfigElement : global::System.Configuration.ConfigurationElement
+    {
+        
+        #region IsReadOnly override
+        /// <summary>
+        /// Gets a value indicating whether the element is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
+        #endregion
+        
+        #region Name Property
+        /// <summary>
+        /// The XML name of the <see cref="Name"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        internal const string NamePropertyName = "name";
+        
+        /// <summary>
+        /// Gets or sets the Name.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        [global::System.ComponentModel.DescriptionAttribute("The Name.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::Codestellation.Mailer.Config.GroupConfigElement.NamePropertyName, IsRequired=true, IsKey=true, IsDefaultCollection=false)]
+        public string Name
+        {
+            get
+            {
+                return ((string)(base[global::Codestellation.Mailer.Config.GroupConfigElement.NamePropertyName]));
+            }
+            set
+            {
+                base[global::Codestellation.Mailer.Config.GroupConfigElement.NamePropertyName] = value;
+            }
+        }
+        #endregion
+        
+        #region Participants Property
+        /// <summary>
+        /// The XML name of the <see cref="Participants"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        internal const string ParticipantsPropertyName = "participants";
+        
+        /// <summary>
+        /// Gets or sets the Participants.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.0")]
+        [global::System.ComponentModel.DescriptionAttribute("The Participants.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::Codestellation.Mailer.Config.GroupConfigElement.ParticipantsPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
+        public string Participants
+        {
+            get
+            {
+                return ((string)(base[global::Codestellation.Mailer.Config.GroupConfigElement.ParticipantsPropertyName]));
+            }
+            set
+            {
+                base[global::Codestellation.Mailer.Config.GroupConfigElement.ParticipantsPropertyName] = value;
             }
         }
         #endregion

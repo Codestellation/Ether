@@ -30,6 +30,11 @@
             <configurationElementCollectionMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/MailingRulesConfigElementCollection" />
           </type>
         </elementProperty>
+        <elementProperty name="MailingGroups" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="groups" isReadOnly="false">
+          <type>
+            <configurationElementCollectionMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/GroupConfigElementCollection" />
+          </type>
+        </elementProperty>
       </elementProperties>
     </configurationSection>
     <configurationElementCollection name="MailingRulesConfigElementCollection" xmlItemName="rule" codeGenOptions="Indexer, AddMethod, RemoveMethod, GetItemMethods">
@@ -45,6 +50,25 @@
           </type>
         </attributeProperty>
         <attributeProperty name="Recepients" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="recepients" isReadOnly="true">
+          <type>
+            <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/String" />
+          </type>
+        </attributeProperty>
+      </attributeProperties>
+    </configurationElement>
+    <configurationElementCollection name="GroupConfigElementCollection" xmlItemName="group" codeGenOptions="Indexer, AddMethod, RemoveMethod, GetItemMethods">
+      <itemType>
+        <configurationElementMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/GroupConfigElement" />
+      </itemType>
+    </configurationElementCollection>
+    <configurationElement name="GroupConfigElement">
+      <attributeProperties>
+        <attributeProperty name="Name" isRequired="true" isKey="true" isDefaultCollection="false" xmlName="name" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/String" />
+          </type>
+        </attributeProperty>
+        <attributeProperty name="Participants" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="participants" isReadOnly="false">
           <type>
             <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/String" />
           </type>
