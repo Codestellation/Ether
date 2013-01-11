@@ -38,5 +38,33 @@ namespace Codestellation.Mailer.Core.Templating.Razor
 
             return new MailView(template.Subject, builder.ToString());
         }
+
+        public static RazorMailTemplateEngine CreateUsingTemplatesFolder(string folderPath)
+        {
+            string[] templateFiles = Directory.GetFiles(folderPath, "*.cshtml", SearchOption.AllDirectories);
+
+            var allTypes = AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .ToList();
+
+            Dictionary<Type, string> typeToTemplateMap = new Dictionary<Type, string>();
+
+            foreach (var templateFile in templateFiles)
+            {
+                string templateName = Path.GetFileNameWithoutExtension(templateFile);
+
+                 Type templateType = allTypes.FirstOrDefault(t => string.Equals(t.Name, templateName, StringComparison.CurrentCultureIgnoreCase));
+
+                if (templateType != null)
+                {
+                    string templateContent = File.ReadAllText(templateFile);
+                    typeToTemplateMap[templateType] = templateContent;
+                }
+            }
+            
+            return new RazorMailTemplateEngine(typeToTemplateMap);
+        }
     }
 }

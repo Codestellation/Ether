@@ -14,11 +14,13 @@ namespace Codestellation.Mailer.Tests.Core.Templating.Razor
         [SetUp]
         public void Setup()
         {
-            _engine = new RazorMailTemplateEngine(new Dictionary<Type, string>
-                {
-                    {typeof (Foo), "@{Subject = \"This is foo subject\";}Hello, @Model.Name!"},
-                    {typeof (Bar), "@{Subject = \"This is bar subject\";}The bar value is @Model.Value"}
-                });
+            _engine = RazorMailTemplateEngine.CreateUsingTemplatesFolder(@"Resources");
+
+            //_engine = new RazorMailTemplateEngine(new Dictionary<Type, string>
+            //    {
+            //        {typeof (Foo), "@{Subject = \"This is foo subject\";}Hello, @Model.Name!"},
+            //        {typeof (Bar), "@{Subject = \"This is bar subject\";}The bar value is @Model.Value"}
+            //    });
         }
 
         [Test]
@@ -31,15 +33,6 @@ namespace Codestellation.Mailer.Tests.Core.Templating.Razor
             MailView barView = _engine.Render(new Bar {Value = 42});
             Assert.That(barView.Subject, Is.EqualTo("This is bar subject"));
             Assert.That(barView.Body, Is.EqualTo("The bar value is 42"));
-        }
-
-        public class Foo
-        {
-            public string Name { get; set; }
-        }
-        public class Bar
-        {
-            public int Value { get; set; } 
         }
     }
 }
