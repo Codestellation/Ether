@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configurationSectionModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="541d0f79-f3eb-462b-ac4b-63be4254ad1d" namespace="Codestellation.Mailer.Config" xmlSchemaNamespace="urn:Codestellation.Mailer.Config" assemblyName="Codestellation.Mailer.Config" xmlns="http://schemas.microsoft.com/dsltools/ConfigurationSectionDesigner">
+<configurationSectionModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="541d0f79-f3eb-462b-ac4b-63be4254ad1d" namespace="Codestellation.Mailer.Config" xmlSchemaNamespace="urn:Codestellation.Mailer.Config" assemblyName="Codestellation.Mailer" xmlns="http://schemas.microsoft.com/dsltools/ConfigurationSectionDesigner">
   <typeDefinitions>
     <externalType name="String" namespace="System" />
     <externalType name="Boolean" namespace="System" />

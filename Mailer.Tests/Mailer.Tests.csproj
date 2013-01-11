@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap\CreateTests.cs" />
     <Compile Include="Core\MailingListBrokerTests.cs" />
     <Compile Include="Core\MailingRuleTests.cs" />
     <Compile Include="Core\Templating\Razor\Mails.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Resources\Bar.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
