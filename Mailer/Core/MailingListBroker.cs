@@ -8,11 +8,11 @@ namespace Codestellation.Mailer.Core
 {
     public class MailingListBroker : IMailingListBroker
     {
-        private Dictionary<string, string[]> _subscriptions;
+        private readonly Dictionary<string, string[]> _subscriptions;
 
-        public MailingListBroker()
+        public MailingListBroker(params MailingRule[] rules)
         {
-            _subscriptions = new Dictionary<string, string[]>();
+            _subscriptions = rules.ToDictionary(r => r.TypeHierarchy, r => r.Recepients);
         }
 
         public string[] GetRecepients(Type type)
@@ -28,10 +28,10 @@ namespace Codestellation.Mailer.Core
             return recepients.Distinct().ToArray();
         }
 
-        public void Register(string typeHierarchy, params string[] recepients)
-        {
-            _subscriptions[typeHierarchy] = recepients;
-        }
+        //public void Register(string typeHierarchy, params string[] recepients)
+        //{
+        //    _subscriptions[typeHierarchy] = recepients;
+        //}
 
         public static bool IsTypeInHierarchy(Type type, string hierarchy)
         {

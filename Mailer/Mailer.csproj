@@ -54,6 +54,7 @@
     <Compile Include="Core\IMailTemplateEngine.cs" />
     <Compile Include="Core\ISmtpClient.cs" />
     <Compile Include="Core\MailingListBroker.cs" />
+    <Compile Include="Core\MailingRule.cs" />
     <Compile Include="Core\MailView.cs" />
     <Compile Include="Core\Templating\Razor\RazorMailTemplateBase.cs" />
     <Compile Include="Core\Templating\Razor\RazorMailTemplateEngine.cs" />

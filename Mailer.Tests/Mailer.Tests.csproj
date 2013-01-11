@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\MailingListBrokerTests.cs" />
+    <Compile Include="Core\MailingRuleTests.cs" />
     <Compile Include="Core\Templating\Razor\RazorMailTemplateEngineTest.cs" />
     <Compile Include="MailNotifierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
