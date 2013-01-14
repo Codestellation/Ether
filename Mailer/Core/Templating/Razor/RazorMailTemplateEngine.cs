@@ -39,8 +39,16 @@ namespace Codestellation.Mailer.Core.Templating.Razor
             return new MailView(template.Subject, builder.ToString());
         }
 
+        //TODO: refactor this method
         public static RazorMailTemplateEngine CreateUsingTemplatesFolder(string folderPath)
         {
+            if (Path.IsPathRooted(folderPath) == false)
+            {
+                string uriAssemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+                string assemblyFolder = new Uri(uriAssemblyFolder).LocalPath;
+                folderPath = Path.Combine(assemblyFolder, folderPath);
+            }
+
             string[] templateFiles = Directory.GetFiles(folderPath, "*.cshtml", SearchOption.AllDirectories);
 
             var allTypes = AppDomain
