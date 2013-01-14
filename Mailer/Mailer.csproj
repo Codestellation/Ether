@@ -61,6 +61,7 @@
     <Compile Include="Core\IMailingListBroker.cs" />
     <Compile Include="Core\IMailTemplateEngine.cs" />
     <Compile Include="Core\ISmtpClient.cs" />
+    <Compile Include="Core\MailingList.cs" />
     <Compile Include="Core\MailingListBroker.cs" />
     <Compile Include="Core\MailingRule.cs" />
     <Compile Include="Core\MailView.cs" />

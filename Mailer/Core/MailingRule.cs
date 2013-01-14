@@ -11,12 +11,17 @@ namespace Codestellation.Mailer.Core
 
         public string TypeHierarchy { get; private set; }
 
-        public string[] Recepients { get; set; }
+        public MailingList Recepients { get; private set; }
 
-        public MailingRule(string typeHierarchy, params string[] recepients)
+        public MailingRule(string typeHierarchy)
+            : this(typeHierarchy, MailingList.Create())
+        {
+        }
+
+        public MailingRule(string typeHierarchy, MailingList recepients)
         {
             TypeHierarchy = typeHierarchy;
-            Recepients = recepients.Distinct().ToArray();
+            Recepients = recepients;
         }
 
         public bool Check(Type type)

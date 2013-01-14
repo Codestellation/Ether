@@ -11,10 +11,13 @@ namespace Codestellation.Mailer.Tests.Core
     public class MailingRuleTests
     {
         [Test]
-        public void Should_contain_unique_recepients()
+        public void CtorTest()
         {
-            var rule = new MailingRule("*", "alice@localhost", "bob@localhost", "alice@localhost");
-            Assert.That(rule.Recepients, Is.EquivalentTo(new[] { "alice@localhost", "bob@localhost" }));
+            var list = new MailingList();
+            var rule = new MailingRule("*", list);
+
+            Assert.That(rule.TypeHierarchy, Is.EqualTo("*"));
+            Assert.That(rule.Recepients, Is.EqualTo(list));
         }
 
         [Test]

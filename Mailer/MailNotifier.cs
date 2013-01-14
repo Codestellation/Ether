@@ -27,7 +27,7 @@ namespace Codestellation.Mailer
             Type mailType = mail.GetType();
             MailView view = _templateEngine.Render(mail);
             var email = new Email(_fromAddress,
-                                  _mailingListBroker.GetRecepients(mailType),
+                                  _mailingListBroker.GetRecepients(mailType).ToArray(),
                                   view);
                 
 

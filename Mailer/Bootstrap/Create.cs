@@ -35,10 +35,10 @@ namespace Codestellation.Mailer.Bootstrap
 
             _fromAddress = config.FromAddress;
 
-            Dictionary<string, string[]> groups = config.MailingGroups
-                                                        .Cast<GroupConfigElement>()
-                                                        .ToDictionary(g => g.Name,
-                                                                      g => g.Participants.SplitAndTrim());
+            Dictionary<string, MailingList> groups = config.MailingGroups
+                                                           .Cast<GroupConfigElement>()
+                                                           .ToDictionary(g => g.Name,
+                                                                         g => MailingList.Parse(g.Participants));
 
             _mailingListBroker =
                 new MailingListBroker(
@@ -47,7 +47,7 @@ namespace Codestellation.Mailer.Bootstrap
                           .Select(
                               cfg =>
                               new MailingRule(cfg.Name,
-                                              BuildRecepientsList(cfg.Recepients.SplitAndTrim(), groups)))
+                                              BuildMailingList(cfg.Recepients.SplitAndTrim(), groups)))
                         
                           .ToArray());
 
@@ -55,21 +55,21 @@ namespace Codestellation.Mailer.Bootstrap
             return this;
         }
 
-        static string[] BuildRecepientsList(string[] recepients, Dictionary<string, string[]> groups) // TODO: move this into MailingRule class
+        static MailingList BuildMailingList(string[] recepients, Dictionary<string, MailingList> groups) // TODO: move this into MailingRule class
         {
-            List<string> result = new List<string>();
+            MailingList list = new MailingList();
             foreach (var recepient in recepients)
             {
                 if (groups.ContainsKey(recepient)) // group?
                 {
-                    result.AddRange(groups[recepient]);
+                    list.UnionWith(groups[recepient]);
                 }
                 else
                 {
-                    result.Add(recepient);
+                    list.Add(recepient);
                 }
             }
-            return result.Distinct().ToArray();
+            return list;
         }
 
         public IMailNotifier Build()

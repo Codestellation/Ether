@@ -7,20 +7,20 @@ namespace Codestellation.Mailer.Core
 {
     public class TestMailingListBroker : IMailingListBroker
     {
-        private readonly Dictionary<Type, string[]> _mailingList;
+        private readonly Dictionary<Type, MailingList> _mailingList;
 
         public TestMailingListBroker()
         {
-            _mailingList = new Dictionary<Type, string[]>();
+            _mailingList = new Dictionary<Type, MailingList>();
         }
 
         public TestMailingListBroker Register<T>(params string[] recepients)
         {
-            _mailingList[typeof(T)] = recepients;
+            _mailingList[typeof(T)] = new MailingList(recepients);
             return this;
         }
 
-        public string[] GetRecepients(Type type)
+        public MailingList GetRecepients(Type type)
         {
             return _mailingList[type];
         }

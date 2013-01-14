@@ -4,6 +4,6 @@ namespace Codestellation.Mailer.Core
 {
     public interface IMailingListBroker
     {
-        string[] GetRecepients(Type type);
+        MailingList GetRecepients(Type type);
     }
 }

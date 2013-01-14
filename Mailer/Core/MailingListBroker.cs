@@ -16,17 +16,14 @@ namespace Codestellation.Mailer.Core
         }
 
         //TODO: need cache proxy for this method
-        public string[] GetRecepients(Type type)
+        public MailingList GetRecepients(Type type)
         {
-            List<string> recepients = new List<string>();
-            foreach (var rule in _rules)
+            MailingList recepients = new MailingList();
+            foreach (var rule in _rules.Where(rule => rule.Check(type)))
             {
-                if (rule.Check(type))
-                {
-                    recepients.AddRange(rule.Recepients);
-                }
+                recepients.UnionWith(rule.Recepients);
             }
-            return recepients.Distinct().ToArray();
+            return recepients;
         }
     }
 }

@@ -17,13 +17,13 @@ namespace Codestellation.Mailer.Tests.Core
         {
             var broker = new MailingListBroker(new[]
                 {
-                    new MailingRule("System", "alice@test.ru", "carol@test.ru"),
-                    new MailingRule("System.String", "alice@test.ru", "bob@test.ru"),
-                    new MailingRule("System.Int32", "alice@test.ru", "dan@test.ru")
+                    new MailingRule("System", MailingList.Create("alice@test.ru", "carol@test.ru")),
+                    new MailingRule("System.String", MailingList.Create("alice@test.ru", "bob@test.ru")),
+                    new MailingRule("System.Int32", MailingList.Create("alice@test.ru", "dan@test.ru"))
                 });
 
             var recepients = broker.GetRecepients(type);
-            Assert.That(recepients, Is.EquivalentTo(expectedRecepients));
+            Assert.That(recepients, Is.EquivalentTo(new MailingList(expectedRecepients)));
         }
     }
 }
