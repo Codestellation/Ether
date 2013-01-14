@@ -8,63 +8,25 @@ namespace Codestellation.Mailer.Core
 {
     public class MailingListBroker : IMailingListBroker
     {
-        private readonly Dictionary<string, string[]> _subscriptions;
+        private readonly MailingRule[] _rules;
 
         public MailingListBroker(params MailingRule[] rules)
         {
-            _subscriptions = rules.ToDictionary(r => r.TypeHierarchy, r => r.Recepients);
+            _rules = rules;
         }
 
+        //TODO: need cache proxy for this method
         public string[] GetRecepients(Type type)
         {
             List<string> recepients = new List<string>();
-            foreach (var subscription in _subscriptions)
+            foreach (var rule in _rules)
             {
-                if(IsTypeInHierarchy(type, subscription.Key))
+                if (rule.Check(type))
                 {
-                    recepients.AddRange(subscription.Value);
+                    recepients.AddRange(rule.Recepients);
                 }
             }
             return recepients.Distinct().ToArray();
-        }
-
-        //public void Register(string typeHierarchy, params string[] recepients)
-        //{
-        //    _subscriptions[typeHierarchy] = recepients;
-        //}
-
-        public static bool IsTypeInHierarchy(Type type, string hierarchy)
-        {
-            if (String.Equals(hierarchy, "*")) // any type
-            {
-                return true;
-            }
-
-            string[] hierarchyTokens = hierarchy.Split('.');
-            string[] typeNameTokens = type.FullName.Split('.');
-            int hierarchyTokensCount = hierarchyTokens.Length;
-            int typeNameTokensCount = typeNameTokens.Length;
-
-            for (int i = 0; i < Math.Min(hierarchyTokensCount, typeNameTokensCount); i++)
-            {
-                string hierarchyToken = hierarchyTokens[i];
-
-                if (String.Equals(hierarchyToken, "*"))
-                {
-                    return true;
-                }
-                if (String.Equals(hierarchyToken, typeNameTokens[i], StringComparison.CurrentCultureIgnoreCase) == false)
-                {
-                    return false;
-                }
-            }
-
-            if (hierarchyTokensCount > typeNameTokensCount && String.Equals(hierarchyTokens[typeNameTokensCount], "*") == false)
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }
