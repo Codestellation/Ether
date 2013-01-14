@@ -65,6 +65,8 @@
     <Compile Include="Core\MailingRule.cs" />
     <Compile Include="Core\MailView.cs" />
     <Compile Include="Core\SmtpClient.cs" />
+    <Compile Include="Core\Templating\Razor\DynamicRazorMailTemplate.cs" />
+    <Compile Include="Core\Templating\Razor\RazorMailTemplate.cs" />
     <Compile Include="Core\Templating\Razor\RazorMailTemplateBase.cs" />
     <Compile Include="Core\Templating\Razor\RazorMailTemplateEngine.cs" />
     <Compile Include="Core\Templating\MailTemplateEngine.cs" />

@@ -4,11 +4,9 @@ namespace Codestellation.Mailer.Core.Templating.Razor
 {
     public abstract class RazorMailTemplateBase
     {
-        public TextWriter Output { get; set; }
+        protected TextWriter Output { get; private set; }
 
-        public dynamic Model { get; set; }
-
-        public string Subject { get; set; }
+        public string Subject { get; protected set; }
 
         public abstract void Execute();
 
@@ -20,6 +18,13 @@ namespace Codestellation.Mailer.Core.Templating.Razor
         protected virtual void WriteLiteral(object value)
         {
             Output.Write(value);
+        }
+
+        public abstract void SetModel(object model);
+
+        public virtual void SetOutput(TextWriter output)
+        {
+            Output = output;
         }
     }
 }

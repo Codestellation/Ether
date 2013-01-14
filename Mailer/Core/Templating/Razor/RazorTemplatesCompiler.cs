@@ -17,34 +17,48 @@ namespace Codestellation.Mailer.Core.Templating.Razor
 
         private readonly string _templatesNamespaceName;
         private readonly RazorTemplateEngine _razorEngine;
-        private readonly Type _templateBaseType;
         private readonly CompilerParameters _compilerParameters;
 
-        public RazorTemplatesCompiler(string templatesNamespaceName, Type templateBaseType)
+        public RazorTemplatesCompiler(string templatesNamespaceName, Type defaultTemplatesBaseClass)
         {
             _templatesNamespaceName = templatesNamespaceName;
-            _templateBaseType = templateBaseType;
-            RazorEngineHost razorHost = new RazorEngineHost(new CSharpRazorCodeLanguage())
-            {
-                DefaultBaseClass = templateBaseType.FullName,
-            };
 
-            razorHost.NamespaceImports.Add("System");
-            razorHost.NamespaceImports.Add("System.Collections.Generic");
-            razorHost.NamespaceImports.Add("System.Linq");
-            razorHost.NamespaceImports.Add("System.Text");
+            var razorHost = new RazorEngineHost(new CSharpRazorCodeLanguage())
+                {
+                    DefaultBaseClass = defaultTemplatesBaseClass.Name
+                };
+
+            string[] namespaces = new[]
+                {
+                    "System",
+                    "System.Collections.Generic",
+                    "System.Linq",
+                    "System.Text"
+                };
+            foreach (var ns in namespaces)
+            {
+                razorHost.NamespaceImports.Add(ns);
+            }
 
             _razorEngine = new RazorTemplateEngine(razorHost);
 
-            _compilerParameters = new CompilerParameters(new[]
+            string[] references = new[]
                 {
-                    _templateBaseType.Assembly.CodeBase.Substring(8), //TODO: refactor this
                     "System.Core.dll",
                     "Microsoft.CSharp.dll"
-                })
+                };
+
+            _compilerParameters = new CompilerParameters(AppDomain.CurrentDomain
+                                                                  .GetAssemblies()
+                                                                  .Where(a => !references.Contains(a.ManifestModule.Name))
+                                                                  .Select(a => new Uri(a.CodeBase).LocalPath)
+                                                                  .Distinct()
+                                                                  .ToArray())
                 {
                     GenerateInMemory = true
                 };
+
+            _compilerParameters.ReferencedAssemblies.AddRange(references);
         }
 
         public Assembly Compile(Dictionary<Type, string> typeToTemplateMap)
@@ -53,7 +67,6 @@ namespace Codestellation.Mailer.Core.Templating.Razor
                 .Select(map => GenerateTemplateCode(map.Key.Name,
                                                     map.Value))
                 .ToArray();
-
             return CompileTemplateCode(codes);
         }
 
@@ -71,22 +84,19 @@ namespace Codestellation.Mailer.Core.Templating.Razor
             }
         }
         
-        protected Assembly CompileTemplateCode(params CodeCompileUnit[] generatedCodes)
+        protected Assembly CompileTemplateCode(CodeCompileUnit[] generatedCodes)
         {
             using (var codeProvider = new CSharpCodeProvider())
             {
-                //#if DEBUG
-                //                using (var writer = new StreamWriter(@"razortemplate-out.cs", false, Encoding.UTF8))
-                //                {
-                //                    codeProvider.GenerateCodeFromCompileUnit(generatedCodes.First(), writer, new CodeGeneratorOptions());
-                //                }
-                //#endif
+                //DumpTemplatesCode(generatedCodes, codeProvider);
 
                 CompilerResults results = codeProvider.CompileAssemblyFromDom(_compilerParameters, generatedCodes);
                 ThrowExceptionIfErrors(results);
                 return results.CompiledAssembly;
             }
         }
+
+        
 
         protected static void ThrowExceptionIfErrors(GeneratorResults results)
         {
@@ -118,6 +128,18 @@ namespace Codestellation.Mailer.Core.Templating.Razor
                                                                                       e.Line,
                                                                                       e.Column,
                                                                                       e.ErrorText))));
+        }
+
+        // diagnostic method
+        private static void DumpTemplatesCode(CodeCompileUnit[] generatedCodes, CSharpCodeProvider codeProvider)
+        {
+            for (int i = 0; i < generatedCodes.Length; i++)
+            {
+                using (var writer = new StreamWriter(string.Format("RazorTemplate{0}.cs", i), false, Encoding.UTF8))
+                {
+                    codeProvider.GenerateCodeFromCompileUnit(generatedCodes[i], writer, new CodeGeneratorOptions());
+                }
+            }
         }
     }
 }

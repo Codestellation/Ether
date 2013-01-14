@@ -17,7 +17,7 @@ namespace Codestellation.Mailer.Core.Templating.Razor
 
         public RazorMailTemplateEngine(Dictionary<Type, string> typeToTemplateMap)
         {
-            var compiler = new RazorTemplatesCompiler(TemplatesNamespaceName, typeof (RazorMailTemplateBase));
+            var compiler = new RazorTemplatesCompiler(TemplatesNamespaceName, typeof (DynamicRazorMailTemplate));
             _templatesAssembly = compiler.Compile(typeToTemplateMap);
         }
 
@@ -31,8 +31,8 @@ namespace Codestellation.Mailer.Core.Templating.Razor
             StringBuilder builder = new StringBuilder();
             using (StringWriter writer = new StringWriter(builder))
             {
-                template.Output = writer;
-                template.Model = mailModel;
+                template.SetOutput(writer);
+                template.SetModel(mailModel);
                 template.Execute();
             }
 
