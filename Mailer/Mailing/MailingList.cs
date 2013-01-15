@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Codestellation.Mailer.Core;
 
-namespace Codestellation.Mailer.Core
+namespace Codestellation.Mailer.Mailing
 {
     public class MailingList : IEnumerable<string>
     {

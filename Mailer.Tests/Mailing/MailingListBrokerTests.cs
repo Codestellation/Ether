@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Codestellation.Mailer.Core;
+using Codestellation.Mailer.Mailing;
 using NUnit.Framework;
 
-namespace Codestellation.Mailer.Tests.Core
+namespace Codestellation.Mailer.Tests.Mailing
 {
     [TestFixture]
     public class MailingListBrokerTests

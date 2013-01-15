@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 
-namespace Codestellation.Mailer.Core
+namespace Codestellation.Mailer.Mailing
 {
     public class MailingListBroker : IMailingListBroker
     {

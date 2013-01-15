@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Codestellation.Mailer.Core
+namespace Codestellation.Mailer.Mailing
 {
     public interface IMailingListBroker
     {

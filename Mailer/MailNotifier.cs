@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Codestellation.Mailer.Core;
+using Codestellation.Mailer.Mailing;
 
 namespace Codestellation.Mailer
 {

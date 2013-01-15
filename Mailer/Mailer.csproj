@@ -58,12 +58,12 @@
     </Compile>
     <Compile Include="Core\Email.cs" />
     <Compile Include="Core\Extentions.cs" />
-    <Compile Include="Core\IMailingListBroker.cs" />
+    <Compile Include="Mailing\IMailingListBroker.cs" />
     <Compile Include="Core\IMailTemplateEngine.cs" />
     <Compile Include="Core\ISmtpClient.cs" />
-    <Compile Include="Core\MailingList.cs" />
-    <Compile Include="Core\MailingListBroker.cs" />
-    <Compile Include="Core\MailingRule.cs" />
+    <Compile Include="Mailing\MailingList.cs" />
+    <Compile Include="Mailing\MailingListBroker.cs" />
+    <Compile Include="Mailing\MailingRule.cs" />
     <Compile Include="Core\MailView.cs" />
     <Compile Include="Core\SmtpClient.cs" />
     <Compile Include="Templating\Razor\DynamicRazorMailTemplate.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Codestellation.Mailer.Config;
 using Codestellation.Mailer.Core;
+using Codestellation.Mailer.Mailing;
 using Codestellation.Mailer.Templating.Razor;
 
 namespace Codestellation.Mailer.Bootstrap
