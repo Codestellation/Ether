@@ -61,10 +61,10 @@ namespace Codestellation.Mailer.Core.Templating.Razor
             _compilerParameters.ReferencedAssemblies.AddRange(references);
         }
 
-        public Assembly Compile(Dictionary<Type, string> typeToTemplateMap)
+        public Assembly Compile(Dictionary<Type, string> typeToTemplateMap, Func<Type, string> templateClassNameGenerator)
         {
             CodeCompileUnit[] codes = typeToTemplateMap
-                .Select(map => GenerateTemplateCode(map.Key.Name,
+                .Select(map => GenerateTemplateCode(templateClassNameGenerator(map.Key),
                                                     map.Value))
                 .ToArray();
             return CompileTemplateCode(codes);

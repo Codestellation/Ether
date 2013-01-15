@@ -18,12 +18,12 @@ namespace Codestellation.Mailer.Core.Templating.Razor
         public RazorMailTemplateEngine(Dictionary<Type, string> typeToTemplateMap)
         {
             var compiler = new RazorTemplatesCompiler(TemplatesNamespaceName, typeof (DynamicRazorMailTemplate));
-            _templatesAssembly = compiler.Compile(typeToTemplateMap);
+            _templatesAssembly = compiler.Compile(typeToTemplateMap, BuildTemplateCalssName);
         }
 
         public MailView Render(object mailModel)
         {
-            string templateTypeName = string.Format("{0}.{1}", TemplatesNamespaceName, mailModel.GetType().Name);
+            string templateTypeName = string.Format("{0}.{1}", TemplatesNamespaceName, BuildTemplateCalssName(mailModel.GetType()));
             var type = _templatesAssembly.GetType(templateTypeName, true);
 
             var template = Activator.CreateInstance(type) as RazorMailTemplateBase; // TODO: cache this
@@ -73,6 +73,11 @@ namespace Codestellation.Mailer.Core.Templating.Razor
             }
             
             return new RazorMailTemplateEngine(typeToTemplateMap);
+        }
+
+        static string BuildTemplateCalssName(Type modelType)
+        {
+            return string.Format("Razor_template_for_{0}_model", modelType.Name);
         }
     }
 }
