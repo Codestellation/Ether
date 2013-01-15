@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Codestellation.Mailer.Core;
+﻿using Codestellation.Mailer.Core;
 using Codestellation.Mailer.Templating.Razor;
 using NUnit.Framework;
 
-namespace Codestellation.Mailer.Tests.Core.Templating.Razor
+namespace Codestellation.Mailer.Tests.Templating.Razor
 {
     [TestFixture]
     public class RazorMailTemplateEngineTests

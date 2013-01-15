@@ -1,4 +1,4 @@
-﻿namespace Codestellation.Mailer.Tests.Core.Templating.Razor
+﻿namespace Codestellation.Mailer.Tests.Templating.Razor
 {
     public class Foo
     {
