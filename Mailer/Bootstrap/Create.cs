@@ -7,6 +7,7 @@ using Codestellation.Mailer.Core;
 using Codestellation.Mailer.Mailing;
 using Codestellation.Mailer.Templating;
 using Codestellation.Mailer.Templating.Razor;
+using Codestellation.Mailer.Transport;
 
 namespace Codestellation.Mailer.Bootstrap
 {

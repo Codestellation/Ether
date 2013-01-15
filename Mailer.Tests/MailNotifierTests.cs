@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Codestellation.Mailer.Core;
+using Codestellation.Mailer.Mailing;
 using Codestellation.Mailer.Templating;
+using Codestellation.Mailer.Transport;
 using NUnit.Framework;
 
 namespace Codestellation.Mailer.Tests

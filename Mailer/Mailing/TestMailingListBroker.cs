@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Codestellation.Mailer.Mailing;
 
-namespace Codestellation.Mailer.Core
+namespace Codestellation.Mailer.Mailing
 {
     public class TestMailingListBroker : IMailingListBroker
     {
