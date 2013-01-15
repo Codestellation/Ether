@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Codestellation.Mailer.Core;
 
-namespace Codestellation.Mailer.Core.Templating
+namespace Codestellation.Mailer.Templating
 {
     public class MailTemplateEngine : IMailTemplateEngine
     {

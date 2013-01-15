@@ -9,7 +9,7 @@ using System.Text;
 using System.Web.Razor;
 using Microsoft.CSharp;
 
-namespace Codestellation.Mailer.Core.Templating.Razor
+namespace Codestellation.Mailer.Templating.Razor
 {
     class RazorTemplatesCompiler
     {

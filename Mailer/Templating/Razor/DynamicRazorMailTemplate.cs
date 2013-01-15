@@ -1,4 +1,4 @@
-﻿namespace Codestellation.Mailer.Core.Templating.Razor
+﻿namespace Codestellation.Mailer.Templating.Razor
 {
     public abstract class DynamicRazorMailTemplate : RazorMailTemplate<dynamic>
     {

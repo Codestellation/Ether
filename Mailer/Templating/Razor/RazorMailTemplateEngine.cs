@@ -1,13 +1,12 @@
 ﻿using System;
-using System.CodeDom;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Codestellation.Mailer.Core;
 
-namespace Codestellation.Mailer.Core.Templating.Razor
+namespace Codestellation.Mailer.Templating.Razor
 {
     public class RazorMailTemplateEngine : IMailTemplateEngine
     {
