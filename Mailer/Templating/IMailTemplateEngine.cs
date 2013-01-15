@@ -1,4 +1,6 @@
-﻿namespace Codestellation.Mailer.Core
+﻿using Codestellation.Mailer.Core;
+
+namespace Codestellation.Mailer.Templating
 {
     public interface IMailTemplateEngine
     {
