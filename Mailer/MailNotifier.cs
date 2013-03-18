@@ -19,6 +19,10 @@ namespace Codestellation.Mailer
 
         public MailNotifier(string fromAddress, ISmtpClient smtpClient, IMailingListBroker mailingListBroker, IMailTemplateEngine templateEngine)
         {
+            if(string.IsNullOrEmpty(fromAddress))
+            {
+                throw new ArgumentNullException("fromAddress");
+            }
             _fromAddress = fromAddress;
             _smtpClient = smtpClient;
             _mailingListBroker = mailingListBroker;
