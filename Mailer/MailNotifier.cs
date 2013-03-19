@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using Codestellation.Mailer.Core;
 using Codestellation.Mailer.Mailing;
 using Codestellation.Mailer.Templating;
 using Codestellation.Mailer.Transport;
+using NLog;
 
 namespace Codestellation.Mailer
 {
     public class MailNotifier : IMailNotifier
     {
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
         private readonly string _fromAddress;
         private readonly ISmtpClient _smtpClient;
         private readonly IMailingListBroker _mailingListBroker;
@@ -31,14 +33,25 @@ namespace Codestellation.Mailer
 
         public void Send(object mail)
         {
-            Type mailType = mail.GetType();
-            MailView view = _templateEngine.Render(mail);
-            var email = new Email(_fromAddress,
-                                  _mailingListBroker.GetRecepients(mailType).ToArray(),
-                                  view);
-                
+            ThreadPool.QueueUserWorkItem(RenderAndSend, mail);
+        }
 
-            _smtpClient.Send(email);
+        void RenderAndSend(object mail)
+        {
+            try
+            {
+                Type mailType = mail.GetType();
+                MailView view = _templateEngine.Render(mail);
+                var email = new Email(_fromAddress,
+                                      _mailingListBroker.GetRecepients(mailType).ToArray(),
+                                      view);
+
+                _smtpClient.Send(email);
+            }
+            catch (Exception error)
+            {
+                Log.ErrorException(string.Format("E-mail '{0}' sending failed", mail), error);
+            }
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Codestellation.Mailer.Core;
 
 namespace Codestellation.Mailer.Transport
@@ -11,20 +8,28 @@ namespace Codestellation.Mailer.Transport
     {
         public ConcurrentQueue<Email> Outgoing { get; private set; }
 
+        private readonly BlockingCollection<Email> _wrapper;
+
         public TestSmtpClient()
         {
             Outgoing = new ConcurrentQueue<Email>();
+            _wrapper = new BlockingCollection<Email>(Outgoing);
         }
 
         public void Send(Email email)
         {
-            Outgoing.Enqueue(email);
+            _wrapper.Add(email);
         }
 
         public Email GetNextOutgoing()
         {
+            return GetNextOutgoing(TimeSpan.FromSeconds(5));
+        }
+
+        public Email GetNextOutgoing(TimeSpan waitingTimeout)
+        {
             Email email;
-            return Outgoing.TryDequeue(out email) ? email : null;
+            return _wrapper.TryTake(out email, waitingTimeout) ? email : null;
         }
     }
 }
