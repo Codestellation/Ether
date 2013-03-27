@@ -11,7 +11,7 @@ namespace Codestellation.Mailer.Transport
     public class SmtpClient : ISmtpClient, IDisposable
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
-        
+
         private readonly ConcurrentQueue<Email> _mailQueue;
         private int _alreadyRunning;
         private System.Net.Mail.SmtpClient _client;
@@ -43,7 +43,7 @@ namespace Codestellation.Mailer.Transport
             //try to acquire exclusive "lock" for the sake of a single sending thread
             var current = Interlocked.CompareExchange(ref _alreadyRunning, 1, 0);
 
-            if(current > 0) return;
+            if (current > 0) return;
 
             ThreadPool.QueueUserWorkItem(delegate { SendNext(); });
         }
@@ -64,7 +64,7 @@ namespace Codestellation.Mailer.Transport
 
                 var recipients = email.Recepients.Collect();
 
-                var mail = new MailMessage(email.From, recipients, email.Subject, email.Body) {IsBodyHtml = true};
+                var mail = new MailMessage(email.From, recipients, email.Subject, email.Body) { IsBodyHtml = true };
 
                 _client.SendAsync(mail, email);
             }
@@ -76,8 +76,8 @@ namespace Codestellation.Mailer.Transport
 
         private void OnSendCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            var email = (Email) e.UserState;
- 
+            var email = (Email)e.UserState;
+
             if (e.Error != null)
             {
                 Log.ErrorException(string.Format("E-mail '{0}' sending failed", email.Subject), e.Error);
@@ -93,11 +93,22 @@ namespace Codestellation.Mailer.Transport
 
         public void Dispose()
         {
+            InternalDispose();
+            GC.SuppressFinalize(this);
+        }
+
+        ~SmtpClient()
+        {
+            InternalDispose();
+        }
+
+        private void InternalDispose()
+        {
             _disposed = true;
 
             var client = _client;
 
-            if(client == null) return;
+            if (client == null) return;
 
             _client.SendAsyncCancel();
 
