@@ -16,12 +16,12 @@ namespace Codestellation.Mailer.Transport
         private int _alreadyRunning;
         private System.Net.Mail.SmtpClient _client;
         private volatile bool _disposed;
-        private readonly ManualResetEvent _lastMailSent;
+        private readonly ManualResetEventSlim _lastMailSent;
 
         public SmtpClient()
         {
             _mailQueue = new ConcurrentQueue<Email>();
-            _lastMailSent = new ManualResetEvent(true);
+            _lastMailSent = new ManualResetEventSlim(true);
         }
 
         public void Send(Email email)
@@ -38,22 +38,25 @@ namespace Codestellation.Mailer.Transport
 
         private void TryStart()
         {
-            if (_alreadyRunning >= 0) return;
+            if (_alreadyRunning >= 1) return;
 
             //try to acquire exclusive "lock" for the sake of a single sending thread
-            var current = Interlocked.CompareExchange(ref _alreadyRunning, 1, 0);
+            var current = Interlocked.Increment(ref _alreadyRunning);
 
-            if (current > 0) return;
+            if (current > 1)
+            {
+                Interlocked.Decrement(ref _alreadyRunning);
+                return;
+            }
 
-            ThreadPool.QueueUserWorkItem(delegate { SendNext(); });
+            ThreadPool.QueueUserWorkItem(SendNext);
         }
 
-        private void SendNext()
+        private void SendNext(object state)
         {
             _lastMailSent.Reset();
 
             Email email = null;
-
             if (_mailQueue.TryDequeue(out email))
             {
                 if (_client == null)
@@ -70,6 +73,12 @@ namespace Codestellation.Mailer.Transport
             }
             else
             {
+                var alreadyStarted = Interlocked.Decrement(ref _alreadyRunning);
+
+                if (alreadyStarted == 0 && _mailQueue.Count > 0)
+                {
+                    TryStart();
+                }
                 _lastMailSent.Set();
             }
         }
@@ -87,8 +96,10 @@ namespace Codestellation.Mailer.Transport
             {
                 _lastMailSent.Set();
             }
-
-            SendNext();
+            else
+            {
+                SendNext(null);
+            }
         }
 
         public void Dispose()
@@ -112,7 +123,7 @@ namespace Codestellation.Mailer.Transport
 
             _client.SendAsyncCancel();
 
-            _lastMailSent.WaitOne();
+            _lastMailSent.Wait();
 
             _client.Dispose();
         }
