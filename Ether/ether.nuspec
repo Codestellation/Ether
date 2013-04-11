@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>Codestellation.Ether</id>
+        <version>0.0</version>
+        <authors>Codestellation project</authors>
+        <owners>Jury Soldatenkov, Ilya Dubadenko, Andrey Ovchinnikov</owners>
+        <licenseUrl>https://github.com/Codestellation/Ether/blob/master/license.txt</licenseUrl>
+        <projectUrl>https://github.com/Codestellation/Ether</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Free razor-based mail engine</description>
+        <copyright>Copyright (c) 2013 Codestellation</copyright>
+        <tags>mail engine</tags>
+        <dependencies>
+            <dependency id="Microsoft.AspNet.Razor" version="2.0.20715.0" />
+            <dependency id="NLog" version="2.0.0.2000" />
+        </dependencies>
+    </metadata>
+</package>
