@@ -65,7 +65,7 @@ namespace Codestellation.Mailer.Transport
                     _client.SendCompleted += OnSendCompleted;
                 }
 
-                var recipients = email.Recepients.Collect();
+                var recipients = email.Recipients.Collect();
 
                 var mail = new MailMessage(email.From, recipients, email.Subject, email.Body) { IsBodyHtml = true };
 

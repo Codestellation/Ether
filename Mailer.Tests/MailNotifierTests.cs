@@ -50,7 +50,7 @@ namespace Codestellation.Mailer.Tests
         {
             _notifier.Send("Hello");
             Email email = _smtpClient.GetNextOutgoing();
-            Assert.That(email.Recepients, Is.EquivalentTo(new string[] {"alice@test.ru", "bob@test.ru"}));
+            Assert.That(email.Recipients, Is.EquivalentTo(new string[] {"alice@test.ru", "bob@test.ru"}));
         }
 
         [Test]
