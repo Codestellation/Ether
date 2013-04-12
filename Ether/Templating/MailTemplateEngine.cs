@@ -15,7 +15,10 @@ namespace Codestellation.Ether.Templating
 
         public MailView Render(object mailModel)
         {
-            return _renders[mailModel.GetType()](mailModel);
+            Type modelType = mailModel.GetType();
+
+            var rendererFunc = _renders[modelType];
+            return rendererFunc(mailModel);
         }
 
         public MailTemplateEngine Register<T>(Func<T, MailView> render)

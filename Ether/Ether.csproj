@@ -94,6 +94,7 @@
       <DependentUpon>ConfigSectionDesigner.csd</DependentUpon>
       <SubType>Designer</SubType>
     </None>
+    <None Include="ether.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

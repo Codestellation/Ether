@@ -42,8 +42,10 @@ namespace Codestellation.Ether
             {
                 Type mailType = mail.GetType();
                 MailView view = _templateEngine.Render(mail);
+                string[] recipients = _mailingListBroker.GetRecepients(mailType).ToArray();
+
                 var email = new Email(_fromAddress,
-                                      _mailingListBroker.GetRecepients(mailType).ToArray(),
+                                      recipients,
                                       view);
 
                 _smtpClient.Send(email);
