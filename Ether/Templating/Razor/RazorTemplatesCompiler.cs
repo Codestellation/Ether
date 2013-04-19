@@ -48,8 +48,10 @@ namespace Codestellation.Ether.Templating.Razor
                     "Microsoft.CSharp.dll"
                 };
 
-            _compilerParameters = new CompilerParameters(AppDomain.CurrentDomain
-                                                                  .GetAssemblies()
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            _compilerParameters = new CompilerParameters(assemblies
+                                                                  .Where(x => !x.IsDynamic)
                                                                   .Where(a => !references.Contains(a.ManifestModule.Name))
                                                                   .Select(a => new Uri(a.CodeBase).LocalPath)
                                                                   .Distinct()
