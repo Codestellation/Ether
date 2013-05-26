@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap\CreateTests.cs" />
+    <Compile Include="Core\PersistentOutgoingEmailQueueTests.cs" />
     <Compile Include="Mailing\MailingListBrokerTests.cs" />
     <Compile Include="Mailing\MailingListTests.cs" />
     <Compile Include="Mailing\MailingRuleTests.cs" />
@@ -70,9 +71,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Ether\Ether.csproj">
       <Project>{F57FFD61-2D40-4E90-A915-C8AD9E2B554F}</Project>

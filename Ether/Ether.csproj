@@ -59,16 +59,16 @@
     </Compile>
     <Compile Include="Core\Email.cs" />
     <Compile Include="Core\Extentions.cs" />
+    <Compile Include="Core\InMemoryOutgoingEmailQueue.cs" />
+    <Compile Include="Core\IOutgoingEmailQueue.cs" />
+    <Compile Include="Core\PersistentOutgoingEmailQueue.cs" />
     <Compile Include="Mailing\IMailingListBroker.cs" />
-    <Compile Include="Persistence\IRepository.cs" />
     <Compile Include="Templating\IMailTemplateEngine.cs" />
-    <Compile Include="Transport\ISmtpClient.cs" />
     <Compile Include="Mailing\MailingList.cs" />
     <Compile Include="Mailing\MailingListBroker.cs" />
     <Compile Include="Mailing\MailingRule.cs" />
     <Compile Include="Core\MailView.cs" />
-    <Compile Include="Transport\PersistentSmtpClient.cs" />
-    <Compile Include="Transport\SmtpClient.cs" />
+    <Compile Include="Transport\SmtpSender.cs" />
     <Compile Include="Templating\Razor\DynamicRazorMailTemplate.cs" />
     <Compile Include="Templating\Razor\RazorMailTemplate.cs" />
     <Compile Include="Templating\Razor\RazorMailTemplateBase.cs" />
@@ -76,11 +76,10 @@
     <Compile Include="Templating\MailTemplateEngine.cs" />
     <Compile Include="Templating\Razor\RazorTemplatesCompiler.cs" />
     <Compile Include="Mailing\TestMailingListBroker.cs" />
-    <Compile Include="Transport\TestSmtpClient.cs" />
     <Compile Include="IMailNotifier.cs" />
     <Compile Include="MailNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestMailNotifier.cs" />
+    <Compile Include="InMemoryMailNotifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\ConfigSectionDesigner.csd">

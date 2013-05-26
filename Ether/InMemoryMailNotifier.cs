@@ -3,15 +3,15 @@ using NLog;
 
 namespace Codestellation.Ether
 {
-    public class TestMailNotifier : IMailNotifier
+    public class InMemoryMailNotifier : IMailNotifier
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
-        public static TestMailNotifier Global = new TestMailNotifier();
+        public static InMemoryMailNotifier Global = new InMemoryMailNotifier();
 
         public ConcurrentQueue<object> Outgoing { get; private set; }
 
-        public TestMailNotifier()
+        public InMemoryMailNotifier()
         {
             Outgoing = new ConcurrentQueue<object>();
         }

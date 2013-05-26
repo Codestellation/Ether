@@ -4,35 +4,42 @@ using System.Threading;
 using Codestellation.Ether.Core;
 using Codestellation.Ether.Mailing;
 using Codestellation.Ether.Templating;
-using Codestellation.Ether.Transport;
 using NLog;
 
 namespace Codestellation.Ether
 {
-    public class MailNotifier : IMailNotifier
+    public class MailNotifier : IMailNotifier, IDisposable
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         private readonly string _fromAddress;
-        private readonly ISmtpClient _smtpClient;
+        private readonly IOutgoingEmailQueue _outgoingQueue;
         private readonly IMailingListBroker _mailingListBroker;
         private readonly IMailTemplateEngine _templateEngine;
 
+        private bool _disposed;
+        private readonly CountdownEvent _completed;
 
-        public MailNotifier(string fromAddress, ISmtpClient smtpClient, IMailingListBroker mailingListBroker, IMailTemplateEngine templateEngine)
+        public MailNotifier(string fromAddress, IOutgoingEmailQueue outgoingQueue, IMailingListBroker mailingListBroker, IMailTemplateEngine templateEngine)
         {
             if(string.IsNullOrEmpty(fromAddress))
             {
                 throw new ArgumentNullException("fromAddress");
             }
             _fromAddress = fromAddress;
-            _smtpClient = smtpClient;
+            _outgoingQueue = outgoingQueue;
             _mailingListBroker = mailingListBroker;
             _templateEngine = templateEngine;
+            _completed = new CountdownEvent(1);
         }
 
         public void Send(object mail)
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(GetType().FullName);
+            }
+            _completed.TryAddCount(1);
             ThreadPool.QueueUserWorkItem(RenderAndSend, mail);
         }
 
@@ -48,12 +55,30 @@ namespace Codestellation.Ether
                                       recipients,
                                       view);
 
-                _smtpClient.Send(email);
+                _outgoingQueue.Enqueue(email);
             }
             catch (Exception error)
             {
-                Log.ErrorException(string.Format("E-mail '{0}' sending failed", mail), error);
+                Log.ErrorException(string.Format("Email '{0}' sending failed", mail), error);
             }
+            finally
+            {
+                _completed.Signal();
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+            _disposed = true;
+            _completed.Signal();
+            _completed.Wait(TimeSpan.FromSeconds(10)); //TODO: should be const
+            _completed.Dispose();
+
+            Log.Debug("Disposed");
         }
     }
 }
