@@ -60,12 +60,14 @@
     <Compile Include="Core\Email.cs" />
     <Compile Include="Core\Extentions.cs" />
     <Compile Include="Mailing\IMailingListBroker.cs" />
+    <Compile Include="Persistence\IRepository.cs" />
     <Compile Include="Templating\IMailTemplateEngine.cs" />
     <Compile Include="Transport\ISmtpClient.cs" />
     <Compile Include="Mailing\MailingList.cs" />
     <Compile Include="Mailing\MailingListBroker.cs" />
     <Compile Include="Mailing\MailingRule.cs" />
     <Compile Include="Core\MailView.cs" />
+    <Compile Include="Transport\PersistentSmtpClient.cs" />
     <Compile Include="Transport\SmtpClient.cs" />
     <Compile Include="Templating\Razor\DynamicRazorMailTemplate.cs" />
     <Compile Include="Templating\Razor\RazorMailTemplate.cs" />
