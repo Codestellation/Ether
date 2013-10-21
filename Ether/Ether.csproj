@@ -68,6 +68,7 @@
     <Compile Include="Mailing\MailingListBroker.cs" />
     <Compile Include="Mailing\MailingRule.cs" />
     <Compile Include="Core\MailView.cs" />
+    <Compile Include="Templating\Razor\RenderContext.cs" />
     <Compile Include="Transport\SmtpSender.cs" />
     <Compile Include="Templating\Razor\DynamicRazorMailTemplate.cs" />
     <Compile Include="Templating\Razor\RazorMailTemplate.cs" />

@@ -67,6 +67,12 @@
     <None Include="Resources\Bar.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Baz.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Layout.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Foo.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

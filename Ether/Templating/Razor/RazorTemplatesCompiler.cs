@@ -1,12 +1,12 @@
 ﻿using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Web.Razor;
+using System.Web.Razor.Generator;
 using Microsoft.CSharp;
 
 namespace Codestellation.Ether.Templating.Razor
@@ -25,7 +25,11 @@ namespace Codestellation.Ether.Templating.Razor
 
             var razorHost = new RazorEngineHost(new CSharpRazorCodeLanguage())
                 {
-                    DefaultBaseClass = defaultTemplatesBaseClass.Name
+                    DefaultBaseClass = defaultTemplatesBaseClass.Name,
+                    GeneratedClassContext = new GeneratedClassContext("Execute", "Write", "WriteLiteral",
+                                                                      "WriteTo", "WriteLiteralTo",
+                                                                      null,
+                                                                      "DefineSection")
                 };
 
             string[] namespaces = new[]
@@ -63,11 +67,11 @@ namespace Codestellation.Ether.Templating.Razor
             _compilerParameters.ReferencedAssemblies.AddRange(references);
         }
 
-        public Assembly Compile(Dictionary<Type, string> typeToTemplateMap, Func<Type, string> templateClassNameGenerator)
+        public Assembly Compile(string[] templatesFilePath)
         {
-            CodeCompileUnit[] codes = typeToTemplateMap
-                .Select(map => GenerateTemplateCode(templateClassNameGenerator(map.Key),
-                                                    map.Value))
+            CodeCompileUnit[] codes = templatesFilePath
+                .Select(path => GenerateTemplateCode(Path.GetFileNameWithoutExtension(path),
+                                                     File.ReadAllText(path)))
                 .ToArray();
             return CompileTemplateCode(codes);
         }

@@ -9,4 +9,9 @@
     {
         public int Value { get; set; }
     }
+
+    public class Baz
+    {
+         
+    }
 }

@@ -1,0 +1,8 @@
+﻿@inherits Codestellation.Ether.Templating.Razor.DynamicRazorMailTemplate
+
+@{ 
+    Subject = "This is layout subject"; 
+}
+@RenderSection("header")
+@RenderBody()
+@RenderSection("footer")
