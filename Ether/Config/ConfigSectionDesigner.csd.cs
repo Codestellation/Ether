@@ -149,6 +149,32 @@ namespace Codestellation.Ether.Config
         }
         #endregion
         
+        #region AutoReloadTemplates Property
+        /// <summary>
+        /// The XML name of the <see cref="AutoReloadTemplates"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        internal const string AutoReloadTemplatesPropertyName = "autoReloadTemplates";
+        
+        /// <summary>
+        /// Gets or sets the AutoReloadTemplates.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        [global::System.ComponentModel.DescriptionAttribute("The AutoReloadTemplates.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::Codestellation.Ether.Config.EtherConfigSection.AutoReloadTemplatesPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false, DefaultValue=false)]
+        public virtual bool AutoReloadTemplates
+        {
+            get
+            {
+                return ((bool)(base[global::Codestellation.Ether.Config.EtherConfigSection.AutoReloadTemplatesPropertyName]));
+            }
+            set
+            {
+                base[global::Codestellation.Ether.Config.EtherConfigSection.AutoReloadTemplatesPropertyName] = value;
+            }
+        }
+        #endregion
+        
         #region MailingRules Property
         /// <summary>
         /// The XML name of the <see cref="MailingRules"/> property.

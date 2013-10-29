@@ -54,6 +54,8 @@
     <Compile Include="Mailing\MailingListBrokerTests.cs" />
     <Compile Include="Mailing\MailingListTests.cs" />
     <Compile Include="Mailing\MailingRuleTests.cs" />
+    <Compile Include="Misc\FolderChangedTriggerTests.cs" />
+    <Compile Include="Misc\UtilsTests.cs" />
     <Compile Include="Templating\Razor\Mails.cs" />
     <Compile Include="Templating\Razor\RazorMailTemplateEngineTest.cs" />
     <Compile Include="MailNotifierTests.cs" />

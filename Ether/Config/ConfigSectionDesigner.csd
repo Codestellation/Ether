@@ -28,6 +28,11 @@
             <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/String" />
           </type>
         </attributeProperty>
+        <attributeProperty name="AutoReloadTemplates" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="autoReloadTemplates" isReadOnly="false" defaultValue="false">
+          <type>
+            <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/Boolean" />
+          </type>
+        </attributeProperty>
       </attributeProperties>
       <elementProperties>
         <elementProperty name="MailingRules" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="rules" isReadOnly="false">

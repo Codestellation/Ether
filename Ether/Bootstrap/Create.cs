@@ -4,6 +4,7 @@ using System.Linq;
 using Codestellation.Ether.Config;
 using Codestellation.Ether.Core;
 using Codestellation.Ether.Mailing;
+using Codestellation.Ether.Misc;
 using Codestellation.Ether.Templating;
 using Codestellation.Ether.Templating.Razor;
 using Codestellation.Ether.Transport;
@@ -25,6 +26,7 @@ namespace Codestellation.Ether.Bootstrap
         private IOutgoingEmailQueue _outgoingEmailQueue;
         private IMailingListBroker _mailingListBroker;
         private IMailTemplateEngine _templateEngine;
+        private ITrigger _folderChangedTrigger;
 
         public MailNotifierBuilder FromConfig()
         {
@@ -59,7 +61,15 @@ namespace Codestellation.Ether.Bootstrap
                         
                           .ToArray());
 
-            _templateEngine = RazorMailTemplateEngine.CreateUsingTemplatesFolder(config.TemplatesFolder);
+            var templatesFactory = new RazorTemplatesFactory(config.TemplatesFolder);
+
+            if (config.AutoReloadTemplates)
+            {
+                _folderChangedTrigger = new FolderChangedTrigger(templatesFactory.TemplatesFolderPath, "*.cshtml");
+                _folderChangedTrigger.Attach(templatesFactory);
+            }
+
+            _templateEngine = new RazorMailTemplateEngine(templatesFactory);
             return this;
         }
 
@@ -87,7 +97,12 @@ namespace Codestellation.Ether.Bootstrap
                                             _mailingListBroker,
                                             _templateEngine);
 
-            return new DisposableContainer(notifier, _smtpSender, _outgoingEmailQueue);
+            if (_folderChangedTrigger != null)
+            {
+                _folderChangedTrigger.Start();
+            }
+
+            return new DisposableContainer(notifier, _folderChangedTrigger, _smtpSender, _outgoingEmailQueue);
         }
     }
 
@@ -104,9 +119,13 @@ namespace Codestellation.Ether.Bootstrap
 
         public void Dispose()
         {
-            foreach (IDisposable disposable in _components.OfType<IDisposable>())
+            foreach (var component in _components)
             {
-                disposable.Dispose();
+                var disposable = component as IDisposable;
+                if (disposable != null)
+                {
+                    disposable.Dispose();
+                }
             }
             _notifier.Dispose();
         }

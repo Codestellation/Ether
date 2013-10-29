@@ -63,11 +63,16 @@
     <Compile Include="Core\IOutgoingEmailQueue.cs" />
     <Compile Include="Core\PersistentOutgoingEmailQueue.cs" />
     <Compile Include="Mailing\IMailingListBroker.cs" />
+    <Compile Include="Misc\FolderChangedTrigger.cs" />
+    <Compile Include="Misc\ITrigger.cs" />
+    <Compile Include="Misc\ITriggerHander.cs" />
+    <Compile Include="Misc\Utils.cs" />
     <Compile Include="Templating\IMailTemplateEngine.cs" />
     <Compile Include="Mailing\MailingList.cs" />
     <Compile Include="Mailing\MailingListBroker.cs" />
     <Compile Include="Mailing\MailingRule.cs" />
     <Compile Include="Core\MailView.cs" />
+    <Compile Include="Templating\Razor\RazorTemplatesFactory.cs" />
     <Compile Include="Templating\Razor\RenderContext.cs" />
     <Compile Include="Transport\SmtpSender.cs" />
     <Compile Include="Templating\Razor\DynamicRazorMailTemplate.cs" />

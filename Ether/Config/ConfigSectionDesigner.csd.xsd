@@ -37,6 +37,11 @@
 				<xs:documentation>The OutgoingEmailsFile.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="autoReloadTemplates" use="optional" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>The AutoReloadTemplates.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="Codestellation.Ether.Config.MailingRulesConfigElementCollectionCT">
 		<xs:choice minOccurs="0" maxOccurs="unbounded">
