@@ -8,11 +8,14 @@ using System.Text;
 using System.Web.Razor;
 using System.Web.Razor.Generator;
 using Microsoft.CSharp;
+using NLog;
 
 namespace Codestellation.Ether.Templating.Razor
 {
     class RazorTemplatesCompiler
     {
+        private readonly static Logger Logger = LogManager.GetCurrentClassLogger();
+
         private const string LineX0TColX1TErrorX2Rn = "Line: {0}\t Col: {1}\t Error: {2}";
 
         private readonly string _templatesNamespaceName;
@@ -69,14 +72,20 @@ namespace Codestellation.Ether.Templating.Razor
 
         public Assembly Compile(string[] templatesFilePath)
         {
-            CodeCompileUnit[] codes = templatesFilePath
-                .Select(path => GenerateTemplateCode(Path.GetFileNameWithoutExtension(path),
-                                                     File.ReadAllText(path)))
-                .ToArray();
-            return CompileTemplateCode(codes);
+            using (var codeProvider = new CSharpCodeProvider())
+            {
+                CodeCompileUnit[] codes = templatesFilePath
+                    .Select(path => GenerateTemplateCode(
+                        Path.GetFileNameWithoutExtension(path),
+                        File.ReadAllText(path),
+                        codeProvider))
+                    .ToArray();
+
+                return CompileTemplateCode(codes, codeProvider);
+            }
         }
 
-        protected CodeCompileUnit GenerateTemplateCode(string templateClassName, string templateContent)
+        protected CodeCompileUnit GenerateTemplateCode(string templateClassName, string templateContent, CSharpCodeProvider codeProvider)
         {
             using (var reader = new StringReader(templateContent))
             {
@@ -86,23 +95,23 @@ namespace Codestellation.Ether.Templating.Razor
                                                                      null);
 
                 ThrowExceptionIfErrors(results);
-                return results.GeneratedCode;
+
+                var code = results.GeneratedCode;
+                DumpTemplateCode(templateClassName, code, codeProvider);
+                Logger.Debug("Code generation for '{0}' completed", templateClassName);                
+                return code;
             }
         }
-        
-        protected Assembly CompileTemplateCode(CodeCompileUnit[] generatedCodes)
+
+        protected Assembly CompileTemplateCode(CodeCompileUnit[] generatedCodes, CSharpCodeProvider codeProvider)
         {
-            using (var codeProvider = new CSharpCodeProvider())
-            {
-                DumpTemplatesCode(generatedCodes, codeProvider);
+            CompilerResults results = codeProvider.CompileAssemblyFromDom(_compilerParameters, generatedCodes);
+            ThrowExceptionIfErrors(results);
 
-                CompilerResults results = codeProvider.CompileAssemblyFromDom(_compilerParameters, generatedCodes);
-                ThrowExceptionIfErrors(results);
-                return results.CompiledAssembly;
-            }
+            Assembly assembly = results.CompiledAssembly;
+            Logger.Debug("Compilation succeeded. Templates assembly: {0}", assembly);
+            return assembly;
         }
-
-        
 
         protected static void ThrowExceptionIfErrors(GeneratorResults results)
         {
@@ -137,14 +146,12 @@ namespace Codestellation.Ether.Templating.Razor
         }
 
         // diagnostic method
-        private static void DumpTemplatesCode(CodeCompileUnit[] generatedCodes, CSharpCodeProvider codeProvider)
+        private static void DumpTemplateCode(string templateName, CodeCompileUnit code, CSharpCodeProvider codeProvider)
         {
-            for (int i = 0; i < generatedCodes.Length; i++)
+            var tepmlateSourceCodeFilePath = string.Format("Template-{0}.cs", templateName);
+            using (var writer = new StreamWriter(tepmlateSourceCodeFilePath, false, Encoding.UTF8))
             {
-                using (var writer = new StreamWriter(string.Format("RazorTemplate{0}.cs", i), false, Encoding.UTF8))
-                {
-                    codeProvider.GenerateCodeFromCompileUnit(generatedCodes[i], writer, new CodeGeneratorOptions());
-                }
+                codeProvider.GenerateCodeFromCompileUnit(code, writer, new CodeGeneratorOptions());
             }
         }
     }
