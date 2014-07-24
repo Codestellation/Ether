@@ -15,7 +15,7 @@ namespace Codestellation.Ether.Tests.Templating.Razor
         public void Setup()
         {
             var factory = new RazorTemplatesFactory(@"Resources");
-            _engine = new RazorMailTemplateEngine(factory);
+            _engine = new RazorMailTemplateEngine(factory, false);
         }
 
         [Test]

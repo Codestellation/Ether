@@ -74,6 +74,32 @@ namespace Codestellation.Ether.Config
         }
         #endregion
         
+        #region FromAddress Property
+        /// <summary>
+        /// The XML name of the <see cref="FromAddress"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        internal const string FromAddressPropertyName = "fromAddress";
+        
+        /// <summary>
+        /// Gets or sets the FromAddress.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        [global::System.ComponentModel.DescriptionAttribute("The FromAddress.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::Codestellation.Ether.Config.EtherConfigSection.FromAddressPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
+        public virtual string FromAddress
+        {
+            get
+            {
+                return ((string)(base[global::Codestellation.Ether.Config.EtherConfigSection.FromAddressPropertyName]));
+            }
+            set
+            {
+                base[global::Codestellation.Ether.Config.EtherConfigSection.FromAddressPropertyName] = value;
+            }
+        }
+        #endregion
+        
         #region TemplatesFolder Property
         /// <summary>
         /// The XML name of the <see cref="TemplatesFolder"/> property.
@@ -100,51 +126,25 @@ namespace Codestellation.Ether.Config
         }
         #endregion
         
-        #region FromAddress Property
+        #region OutgoingEmailsFolder Property
         /// <summary>
-        /// The XML name of the <see cref="FromAddress"/> property.
+        /// The XML name of the <see cref="OutgoingEmailsFolder"/> property.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
-        internal const string FromAddressPropertyName = "fromAddress";
+        internal const string OutgoingEmailsFolderPropertyName = "outgoingEmailsFolder";
         
         /// <summary>
-        /// Gets or sets the FromAddress.
+        /// Gets the OutgoingEmailsFolder.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
-        [global::System.ComponentModel.DescriptionAttribute("The FromAddress.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::Codestellation.Ether.Config.EtherConfigSection.FromAddressPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
-        public virtual string FromAddress
-        {
-            get
-            {
-                return ((string)(base[global::Codestellation.Ether.Config.EtherConfigSection.FromAddressPropertyName]));
-            }
-            set
-            {
-                base[global::Codestellation.Ether.Config.EtherConfigSection.FromAddressPropertyName] = value;
-            }
-        }
-        #endregion
-        
-        #region OutgoingEmailsFile Property
-        /// <summary>
-        /// The XML name of the <see cref="OutgoingEmailsFile"/> property.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
-        internal const string OutgoingEmailsFilePropertyName = "outgoingEmailsFile";
-        
-        /// <summary>
-        /// Gets the OutgoingEmailsFile.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
-        [global::System.ComponentModel.DescriptionAttribute("The OutgoingEmailsFile.")]
+        [global::System.ComponentModel.DescriptionAttribute("The OutgoingEmailsFolder.")]
         [global::System.ComponentModel.ReadOnlyAttribute(true)]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::Codestellation.Ether.Config.EtherConfigSection.OutgoingEmailsFilePropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
-        public virtual string OutgoingEmailsFile
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::Codestellation.Ether.Config.EtherConfigSection.OutgoingEmailsFolderPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
+        public virtual string OutgoingEmailsFolder
         {
             get
             {
-                return ((string)(base[global::Codestellation.Ether.Config.EtherConfigSection.OutgoingEmailsFilePropertyName]));
+                return ((string)(base[global::Codestellation.Ether.Config.EtherConfigSection.OutgoingEmailsFolderPropertyName]));
             }
         }
         #endregion
@@ -171,6 +171,32 @@ namespace Codestellation.Ether.Config
             set
             {
                 base[global::Codestellation.Ether.Config.EtherConfigSection.AutoReloadTemplatesPropertyName] = value;
+            }
+        }
+        #endregion
+        
+        #region PoolSize Property
+        /// <summary>
+        /// The XML name of the <see cref="PoolSize"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        internal const string PoolSizePropertyName = "poolSize";
+        
+        /// <summary>
+        /// Gets or sets the PoolSize.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        [global::System.ComponentModel.DescriptionAttribute("The PoolSize.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::Codestellation.Ether.Config.EtherConfigSection.PoolSizePropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false, DefaultValue=1)]
+        public virtual int PoolSize
+        {
+            get
+            {
+                return ((int)(base[global::Codestellation.Ether.Config.EtherConfigSection.PoolSizePropertyName]));
+            }
+            set
+            {
+                base[global::Codestellation.Ether.Config.EtherConfigSection.PoolSizePropertyName] = value;
             }
         }
         #endregion

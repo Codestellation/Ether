@@ -21,5 +21,14 @@ namespace Codestellation.Ether.Misc
             folderPath = Path.Combine(executingAssemblyPath, folderPath);
             return folderPath;
         }
+
+        public static void Dispose(object obj)
+        {
+            var disposable = obj as IDisposable;
+            if (disposable != null)
+            {
+                disposable.Dispose();
+            }
+        }
     }
 }

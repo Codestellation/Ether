@@ -22,24 +22,29 @@
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
+		<xs:attribute name="fromAddress" use="required" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The FromAddress.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="templatesFolder" use="optional" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The TemplatesFolder.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="fromAddress" use="optional" type="xs:string">
+		<xs:attribute name="outgoingEmailsFolder" use="optional" type="xs:string">
 			<xs:annotation>
-				<xs:documentation>The FromAddress.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="outgoingEmailsFile" use="optional" type="xs:string">
-			<xs:annotation>
-				<xs:documentation>The OutgoingEmailsFile.</xs:documentation>
+				<xs:documentation>The OutgoingEmailsFolder.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="autoReloadTemplates" use="optional" type="xs:boolean">
 			<xs:annotation>
 				<xs:documentation>The AutoReloadTemplates.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="poolSize" use="optional" type="xs:int">
+			<xs:annotation>
+				<xs:documentation>The PoolSize.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>

@@ -1,3 +1,5 @@
+using System;
+
 namespace Codestellation.Ether.Core
 {
     public class Email

@@ -13,17 +13,17 @@
   <configurationElements>
     <configurationSection name="EtherConfigSection" codeGenOptions="Singleton, XmlnsProperty" xmlSectionName="ether">
       <attributeProperties>
+        <attributeProperty name="FromAddress" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="fromAddress" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/String" />
+          </type>
+        </attributeProperty>
         <attributeProperty name="TemplatesFolder" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="templatesFolder" isReadOnly="false">
           <type>
             <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/String" />
           </type>
         </attributeProperty>
-        <attributeProperty name="FromAddress" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="fromAddress" isReadOnly="false">
-          <type>
-            <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/String" />
-          </type>
-        </attributeProperty>
-        <attributeProperty name="OutgoingEmailsFile" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="outgoingEmailsFile" isReadOnly="true">
+        <attributeProperty name="OutgoingEmailsFolder" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="outgoingEmailsFolder" isReadOnly="true">
           <type>
             <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/String" />
           </type>
@@ -31,6 +31,11 @@
         <attributeProperty name="AutoReloadTemplates" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="autoReloadTemplates" isReadOnly="false" defaultValue="false">
           <type>
             <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/Boolean" />
+          </type>
+        </attributeProperty>
+        <attributeProperty name="PoolSize" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="poolSize" isReadOnly="false" defaultValue="1">
+          <type>
+            <externalTypeMoniker name="/541d0f79-f3eb-462b-ac4b-63be4254ad1d/Int32" />
           </type>
         </attributeProperty>
       </attributeProperties>

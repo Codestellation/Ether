@@ -1,14 +1,24 @@
-﻿using Codestellation.Ether.Core;
+﻿using System;
+using Codestellation.Ether.Core;
+using Codestellation.Ether.Misc;
 
 namespace Codestellation.Ether.Templating.Razor
 {
-    public class RazorMailTemplateEngine : IMailTemplateEngine
+    public class RazorMailTemplateEngine : IMailTemplateEngine, IDisposable
     {
         private readonly RazorTemplatesFactory _templatesFactory;
+        private readonly FolderChangedTrigger _folderChangedTrigger;
 
-        public RazorMailTemplateEngine(RazorTemplatesFactory templatesFactory)
+        public RazorMailTemplateEngine(RazorTemplatesFactory templatesFactory, bool autoReloadTemplates)
         {
             _templatesFactory = templatesFactory;
+
+            if (autoReloadTemplates)
+            {
+                _folderChangedTrigger = new FolderChangedTrigger(templatesFactory.TemplatesFolderPath, "*.cshtml");
+                _folderChangedTrigger.Attach(templatesFactory);
+                _folderChangedTrigger.Start();
+            }
         }
        
         public MailView Render(object mailModel)
@@ -36,6 +46,15 @@ namespace Codestellation.Ether.Templating.Razor
 
             string body = context.RenderBody();
             return new MailView(subject, body);
+        }
+
+        public void Dispose()
+        {
+            if (_folderChangedTrigger != null)
+            {
+                _folderChangedTrigger.Stop();
+                _folderChangedTrigger.Dispose();
+            }
         }
     }
 }
